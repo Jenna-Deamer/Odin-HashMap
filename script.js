@@ -1,4 +1,4 @@
-const hashMap = (function () {
+function hashMap () {
     const loadFactor = 0.75;
     const capacity = 16;
     let buckets = new Array(capacity);
@@ -8,9 +8,8 @@ const hashMap = (function () {
 
         const primeNumber = 31;
         for (let i = 0; i < key.length; i++) {
-            hashCode = primeNumber * hashCode + key.charCodeAt(i);
+             hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % capacity;
         }
-
         return hashCode;
     }
 
@@ -29,7 +28,8 @@ const hashMap = (function () {
 
 
     return { hash, set }
-})();
+};
 
+const test = hashMap();
 
-hashMap.set('apple', 'red')
+test.set('apple', 'red')
