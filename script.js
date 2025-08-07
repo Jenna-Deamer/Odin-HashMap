@@ -1,6 +1,7 @@
-function hashMap() {
-    const loadFactor;
-    const capacity;
+const hashMap = (function () {
+    const loadFactor = 0.75;
+    const capacity = 16;
+    let buckets = new Array(capacity);
 
     function hash(key) {
         let hashCode = 0;
@@ -12,5 +13,23 @@ function hashMap() {
 
         return hashCode;
     }
-    return;
-}
+
+    function set(key, value) {
+        const index = hash(key);
+        console.log(index)
+
+        if (index < 0 || index >= buckets.length) {
+            throw new Error("Trying to access index out of bounds");
+        }
+
+        const pair = { key: key, value: value }
+        console.log(pair)
+
+    }
+
+
+    return { hash, set }
+})();
+
+
+hashMap.set('apple', 'red')
