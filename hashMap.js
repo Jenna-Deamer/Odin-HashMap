@@ -59,10 +59,6 @@ export function hashMap() {
     function get(key) {
         const index = hash(key);
 
-        if (index < 0 || index >= buckets.length) {
-            throw new Error("Trying to access index out of bounds");
-        }
-
         if (buckets[index]) {
             let list = buckets[index];
             let currentNode = list.currentHead();
@@ -81,7 +77,25 @@ export function hashMap() {
         }
     }
 
+    function has(key) {
+        const index = hash(key);
 
-    return { hash, set, get }
+        if (buckets[index]) {
+                let list = buckets[index];
+            let currentNode = list.currentHead();
+            let length = list.currentSize()
+
+            for (let i = 0; i <= length; i++) {
+                if (currentNode.val.key === key) {
+                    return true;
+                }
+                else if (i === length - 1) {
+                    return false;
+                }
+            }
+
+        } else { return false }
+    }
+    return { hash, set, get, has }
 };
 
