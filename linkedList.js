@@ -96,10 +96,11 @@ export function LinkedList() {
         let currentNode = head;
 
         for (let i = 0; i < length; i++) {
-            console.log(currentNode.val);
+            console.log(searchValue)
+            console.log(currentNode.val)
             if (currentNode.val === searchValue) {
-                console.log("Found! " + currentNode.val);
-                break;
+                console.log("Found " + currentNode.val);
+                return currentNode;
             }
             else if (i === length - 1) {
                 console.log('Value not in list');
@@ -147,6 +148,42 @@ export function LinkedList() {
         }
     }
 
+
+    const removeAt = (index) => {
+        console.log('index is: ' + index)
+
+        if (index < 0 || index > length) {
+            return 'Index out of bounds'
+        } else {
+            let currentNode = head;
+            let prevNode = null;
+            let currentIndex = 0;
+
+
+            while (index <= length) {
+                if (index === currentIndex) {
+                    console.log("To be deleted...")
+                    console.log(currentNode)
+                    console.log('prev node')
+                    console.log(prevNode)
+
+                    prevNode.nextNode = currentNode.nextNode
+                    console.log('updated prev node')
+                    console.log(prevNode)
+
+
+                    length--;
+                    return true;
+                } else {
+                    prevNode = currentNode;
+                    currentNode = currentNode.nextNode;
+                    currentIndex++;
+
+                }
+            }
+        }
+    }
+
     return {
         append,
         prepend,
@@ -157,6 +194,7 @@ export function LinkedList() {
         pop,
         contains,
         find,
-        listToString
+        listToString,
+        removeAt
     };
 }

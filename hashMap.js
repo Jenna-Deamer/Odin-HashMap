@@ -11,6 +11,7 @@ export function hashMap() {
         for (let i = 0; i < key.length; i++) {
             hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % capacity;
         }
+        // console.log('Key: ' + key + ' Hashed to ' + hashCode)
         return hashCode;
     }
 
@@ -19,83 +20,59 @@ export function hashMap() {
         if (index < 0 || index >= buckets.length) {
             throw new Error("Trying to access index out of bounds");
         }
+        const bucket = buckets[index];
 
-        const pair = { key: key, value: value }
-
-        // Bucket has items: Search for key update if found. Append if not
-        if (buckets[index]) {
-            console.log('bucket contains items')
+        if (bucket === undefined) {
+            let list = LinkedList();
+            console.log('Bucket is empty creating new list for ' + key)
+            list.append({ key, value });
+            buckets[index] = list;
+        } else {
             let list = buckets[index];
+            let length = list.currentSize();
             let currentNode = list.currentHead();
-            let length = list.currentSize()
 
             for (let i = 0; i <= length; i++) {
-
-                if (currentNode.val.key === key) {
-                    console.log('Match found - updating value')
-                    currentNode.val.value = value;
-                    break;
+                if (currentNode.val.value === key) {
+                    console.log('Key found: ' + key)
+                     currentNode.val.value = value;
                 } else if (i === length - 1) {
-                    console.log("No match - appending")
-                    list.append(pair);
-                    buckets.splice(index, 0, list)
-                }
-                else {
+                    console.log(key + ' - No match - appending')
+                    list.append({ key, value });
+
+                } else {
                     currentNode = currentNode.nextNode
                 }
             }
         }
-
-        // Bucket is empty: create linked list & append pair 
-        if (buckets[index] === undefined) {
-            console.log('Bucket empty - creating linked list')
-            const list = LinkedList();
-            list.append(pair);
-            buckets.splice(index, 0, list)
-        }
     }
-
 
     function get(key) {
         const index = hash(key);
-
+        const list = buckets[index];
         if (buckets[index]) {
-            let list = buckets[index];
             let currentNode = list.currentHead();
-            let length = list.currentSize()
+            let length = list.currentSize();
 
             for (let i = 0; i <= length; i++) {
                 if (currentNode.val.key === key) {
+                    console.log('Key found in list: ' + currentNode.val.key)
                     return currentNode.val.value;
                 }
                 else if (i === length - 1) {
+                    console.log(key + ' - Searched list - key does not exist')
                     return null
+                } else {
+                    currentNode = currentNode.nextNode;
                 }
             }
         } else {
+            console.log(key + ' - Bucket empty - Key does not exist')
             return null
         }
+
     }
 
-    function has(key) {
-        const index = hash(key);
-
-        if (buckets[index]) {
-                let list = buckets[index];
-            let currentNode = list.currentHead();
-            let length = list.currentSize()
-
-            for (let i = 0; i <= length; i++) {
-                if (currentNode.val.key === key) {
-                    return true;
-                }
-                else if (i === length - 1) {
-                    return false;
-                }
-            }
-
-        } else { return false }
-    }
-    return { hash, set, get, has }
+    return { hash, set, get }
 };
 

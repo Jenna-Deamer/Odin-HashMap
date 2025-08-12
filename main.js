@@ -3,9 +3,26 @@ import { hashMap } from "./hashMap.js";
 
 const test = hashMap();
 
-test.set('apple', 'red')
-test.set('j', 'red')
-test.set('apple', 'New red')
+ test.set('apple', 'red') // 10
+ test.set('banana', 'yellow') // 5
+ test.set('carrot', 'orange') // 3
+ test.set('dog', 'brown') // 12
+ test.set('elephant', 'gray') // 1
+ test.set('frog', 'green') // 4
+ test.set('grape', 'purple') // 11
+ test.set('hat', 'black') // 11
+ test.set('ice cream', 'white') // 13
+ test.set('jacket', 'blue') // 14
+ test.set('kite', 'pink') // 15
+ test.set('lion', 'golden') // 12
 
-console.log(test.has('apple'))
-console.log(test.has('orange'))
+
+test.get('apple')
+test.get('banana')
+test.get('carrot')
+test.get('dog')
+test.get('frog') 
+test.get('banana')
+test.get('grape') 
+test.get('hat') 
+test.get('You wont find me!') 
