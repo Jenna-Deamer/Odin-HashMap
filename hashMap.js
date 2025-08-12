@@ -21,7 +21,7 @@ export function hashMap() {
         }
 
         const pair = { key: key, value: value }
-      
+
         // Bucket has items: Search for key update if found. Append if not
         if (buckets[index]) {
             console.log('bucket contains items')
@@ -53,10 +53,35 @@ export function hashMap() {
             list.append(pair);
             buckets.splice(index, 0, list)
         }
-
     }
 
 
-    return { hash, set }
+    function get(key) {
+        const index = hash(key);
+
+        if (index < 0 || index >= buckets.length) {
+            throw new Error("Trying to access index out of bounds");
+        }
+
+        if (buckets[index]) {
+            let list = buckets[index];
+            let currentNode = list.currentHead();
+            let length = list.currentSize()
+
+            for (let i = 0; i <= length; i++) {
+                if (currentNode.val.key === key) {
+                    return currentNode.val.value;
+                }
+                else if (i === length - 1) {
+                    return null
+                }
+            }
+        } else {
+            return null
+        }
+    }
+
+
+    return { hash, set, get }
 };
 
