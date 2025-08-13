@@ -136,12 +136,17 @@ export function hashMap() {
         buckets.forEach(bucket => {
             let listLength = bucket.currentSize();
             totalLength += listLength;
-        });
-    
+        })
+
         console.log('Total length: ' + totalLength)
         return totalLength;
 
     }
-    return { hash, set, get, has, remove, getLength }
+
+    function clear() {
+        buckets.splice(0, capacity)
+    }
+
+    return { hash, set, get, has, remove, getLength, clear }
 };
 
