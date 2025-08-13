@@ -1,8 +1,9 @@
 import { LinkedList } from "./linkedList.js";
 
 export function hashMap() {
-    const loadFactor = 0.75;
-    const capacity = 16;
+    let loadFactor = 0.75;
+    let capacity = 16;
+    let numOfEntries = 0;
     let buckets = new Array(capacity);
 
     function hash(key) {
@@ -13,6 +14,39 @@ export function hashMap() {
         }
         // console.log('Key: ' + key + ' Hashed to ' + hashCode)
         return hashCode;
+    }
+
+    function isOverLoaded() {
+        let currentLoadFactor = numOfEntries / capacity;
+        if (currentLoadFactor > loadFactor) {
+            console.log(numOfEntries)
+            console.log('Overloaded: ' + currentLoadFactor)
+            resizeMap()
+        }
+    }
+
+    function resizeMap() {
+        capacity = capacity * 2; // Next prime num
+        console.log('New capacity: ' + capacity)
+
+        let oldBuckets = buckets;
+        // Loop through and rerun set on all pairs. Giving them new locations since cap increased.
+        buckets = new Array(capacity);
+        oldBuckets.forEach(bucket => {
+            let currentNode = bucket.currentHead();
+            let length = bucket.currentSize();
+
+            for (let i = 0; i <= length; i++) {
+                if (currentNode) {
+                    buckets.set(currentNode.val.key, currentNode.val.value);
+                    currentNode = currentNode.nextNode;
+                }
+
+            }
+        })
+
+
+
     }
 
     function set(key, value) {
@@ -27,6 +61,8 @@ export function hashMap() {
             console.log('Bucket is empty creating new list for ' + key)
             list.append({ key, value });
             buckets[index] = list;
+            numOfEntries++;
+            isOverLoaded();
         } else {
             let list = buckets[index];
             let length = list.currentSize();
@@ -34,12 +70,13 @@ export function hashMap() {
 
             for (let i = 0; i <= length; i++) {
                 if (currentNode.val.value === key) {
-                    console.log('Key found: ' + key)
+                    console.log('Updating: ' + key)
                     currentNode.val.value = value;
                 } else if (i === length - 1) {
                     console.log(key + ' - No match - appending')
                     list.append({ key, value });
-
+                    numOfEntries++;
+                    isOverLoaded();
                 } else {
                     currentNode = currentNode.nextNode
                 }
@@ -118,6 +155,7 @@ export function hashMap() {
             for (let i = 0; i <= length; i++) {
                 if (currentNode.val.key === key) {
                     list.removeAt(i);
+                    numOfEntries--;
                     return true;
 
                 } else if (i === length - 1) {
@@ -145,6 +183,7 @@ export function hashMap() {
 
     function clear() {
         buckets.splice(0, capacity)
+        numOfEntries = 0;
     }
 
     function keys() {
@@ -196,8 +235,8 @@ export function hashMap() {
                 }
             }
         })
-        console.log(listOfPairs)
-     
+        return listOfPairs;
+
     }
 
     return { hash, set, get, has, remove, getLength, clear, keys, values, entries }

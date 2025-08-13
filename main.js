@@ -16,6 +16,7 @@ test.set('ice cream', 'white') // 13
 test.set('jacket', 'blue') // 14
 test.set('kite', 'pink') // 15
 test.set('lion', 'golden') // 12
+test.set('moon', 'silver')
 
 
 
@@ -30,6 +31,7 @@ test.set('lion', 'golden') // 12
 // test.get('hat')
 // test.get('a{')
 // test.values();
-test.entries();
+let output = test.entries();
+console.log(output)
 // test.has('hat')
 // test.has('You wont find me!') 
