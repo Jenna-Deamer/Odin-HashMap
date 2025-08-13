@@ -119,7 +119,7 @@ export function hashMap() {
                 if (currentNode.val.key === key) {
                     list.removeAt(i);
                     return true;
-                    
+
                 } else if (i === length - 1) {
                     return false;
                 } else {
@@ -131,6 +131,17 @@ export function hashMap() {
         }
     }
 
-    return { hash, set, get, has, remove }
+    function getLength() {
+        let totalLength = 0;
+        buckets.forEach(bucket => {
+            let listLength = bucket.currentSize();
+            totalLength += listLength;
+        });
+    
+        console.log('Total length: ' + totalLength)
+        return totalLength;
+
+    }
+    return { hash, set, get, has, remove, getLength }
 };
 
