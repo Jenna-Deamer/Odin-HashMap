@@ -147,6 +147,24 @@ export function hashMap() {
         buckets.splice(0, capacity)
     }
 
-    return { hash, set, get, has, remove, getLength, clear }
+    function keys() {
+        let listOfKeys = [];
+        buckets.forEach(bucket => {
+            let currentNode = bucket.currentHead();
+            let length = bucket.currentSize();
+
+            for (let i = 0; i <= length; i++) {
+                if (currentNode) {
+                    listOfKeys.push(currentNode.val.key);
+                    currentNode = currentNode.nextNode;
+
+                }
+            }
+        });
+
+        console.log(listOfKeys)
+    }
+
+    return { hash, set, get, has, remove, getLength, clear, keys }
 };
 

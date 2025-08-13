@@ -24,12 +24,11 @@ test.set('lion', 'golden') // 12
 // test.has('dog')
 // test.has('frog') 
 // test.has('banana')
-test.remove('grape')
-test.get('grape')
-test.get('hat')
-test.get('a{')
-test.getLength()
-test.clear()
-test.getLength()
+// test.remove('grape')
+// test.get('grape')
+// test.get('hat')
+// test.get('a{')
+test.keys();
+
 // test.has('hat')
 // test.has('You wont find me!') 
