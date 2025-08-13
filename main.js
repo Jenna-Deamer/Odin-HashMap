@@ -17,12 +17,12 @@ const test = hashMap();
  test.set('lion', 'golden') // 12
 
 
-test.get('apple')
-test.get('banana')
-test.get('carrot')
-test.get('dog')
-test.get('frog') 
-test.get('banana')
-test.get('grape') 
-test.get('hat') 
-test.get('You wont find me!') 
+test.has('apple')
+test.has('banana')
+test.has('carrot')
+test.has('dog')
+test.has('frog') 
+test.has('banana')
+test.has('grape') 
+test.has('hat') 
+test.has('You wont find me!') 

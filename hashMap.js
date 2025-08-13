@@ -35,7 +35,7 @@ export function hashMap() {
             for (let i = 0; i <= length; i++) {
                 if (currentNode.val.value === key) {
                     console.log('Key found: ' + key)
-                     currentNode.val.value = value;
+                    currentNode.val.value = value;
                 } else if (i === length - 1) {
                     console.log(key + ' - No match - appending')
                     list.append({ key, value });
@@ -70,9 +70,30 @@ export function hashMap() {
             console.log(key + ' - Bucket empty - Key does not exist')
             return null
         }
-
     }
 
-    return { hash, set, get }
+    function has(key) {
+        const index = hash(key);
+        const list = buckets[index];
+        if (buckets[index]) {
+            let currentNode = list.currentHead();
+            let length = list.currentSize();
+
+            for (let i = 0; i <= length; i++) {
+                if (currentNode.val.key === key) {
+                    return true;
+                }
+                else if (i === length - 1) {
+                    return false;
+                } else {
+                    currentNode = currentNode.nextNode;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
+
+    return { hash, set, get, has }
 };
 
