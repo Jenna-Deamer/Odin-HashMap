@@ -162,9 +162,25 @@ export function hashMap() {
             }
         });
 
-        console.log(listOfKeys)
+        return listOfKeys;
     }
 
-    return { hash, set, get, has, remove, getLength, clear, keys }
+    function values() {
+        let listOfValues = [];
+        buckets.forEach(bucket => {
+            let currentNode = bucket.currentHead();
+            let length = bucket.currentSize();
+
+            for (let i = 0; i <= length; i++) {
+                if (currentNode) {
+                    listOfValues.push(currentNode.val.value);
+                    currentNode = currentNode.nextNode;
+
+                }
+            }
+        });
+        return listOfValues;
+    }
+    return { hash, set, get, has, remove, getLength, clear, keys, values }
 };
 

@@ -28,7 +28,7 @@ test.set('lion', 'golden') // 12
 // test.get('grape')
 // test.get('hat')
 // test.get('a{')
-test.keys();
+test.values();
 
 // test.has('hat')
 // test.has('You wont find me!') 
