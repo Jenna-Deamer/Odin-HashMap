@@ -166,12 +166,15 @@ export function LinkedList() {
                     console.log(currentNode)
                     console.log('prev node')
                     console.log(prevNode)
-
-                    prevNode.nextNode = currentNode.nextNode
-                    console.log('updated prev node')
-                    console.log(prevNode)
-
-
+                    if (prevNode) {
+                        prevNode.nextNode = currentNode.nextNode
+                        console.log('updated prev node')
+                        console.log(prevNode)
+                    }else{
+                        console.log('current node')
+                        head = currentNode.nextNode;
+                        console.log(head)
+                    }
                     length--;
                     return true;
                 } else {

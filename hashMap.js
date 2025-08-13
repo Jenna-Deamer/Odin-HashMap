@@ -50,7 +50,11 @@ export function hashMap() {
     function get(key) {
         const index = hash(key);
         const list = buckets[index];
-        if (buckets[index]) {
+        if (index < 0 || index >= buckets.length) {
+            throw new Error("Trying to access index out of bounds");
+        }
+
+        if (list) {
             let currentNode = list.currentHead();
             let length = list.currentSize();
 
@@ -75,7 +79,12 @@ export function hashMap() {
     function has(key) {
         const index = hash(key);
         const list = buckets[index];
-        if (buckets[index]) {
+
+        if (index < 0 || index >= buckets.length) {
+            throw new Error("Trying to access index out of bounds");
+        }
+
+        if (list) {
             let currentNode = list.currentHead();
             let length = list.currentSize();
 
@@ -94,6 +103,34 @@ export function hashMap() {
         }
     }
 
-    return { hash, set, get, has }
+    function remove(key) {
+        const index = hash(key);
+        const list = buckets[index];
+
+        if (index < 0 || index >= buckets.length) {
+            throw new Error("Trying to access index out of bounds");
+        }
+
+        if (list) {
+            let currentNode = list.currentHead();
+            let length = list.currentSize();
+
+            for (let i = 0; i <= length; i++) {
+                if (currentNode.val.key === key) {
+                    list.removeAt(i);
+                    return true;
+                    
+                } else if (i === length - 1) {
+                    return false;
+                } else {
+                    currentNode = currentNode.nextNode;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
+
+    return { hash, set, get, has, remove }
 };
 
