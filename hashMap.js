@@ -38,15 +38,12 @@ export function hashMap() {
 
             for (let i = 0; i <= length; i++) {
                 if (currentNode) {
-                    buckets.set(currentNode.val.key, currentNode.val.value);
+                    set(currentNode.val.key, currentNode.val.value);
                     currentNode = currentNode.nextNode;
                 }
 
             }
         })
-
-
-
     }
 
     function set(key, value) {
